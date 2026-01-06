@@ -11,6 +11,7 @@ export {
   type TokenResponse,
   type User,
   type Role,
+  type RolePermission,
   type LoginResult,
 } from './auth';
 
