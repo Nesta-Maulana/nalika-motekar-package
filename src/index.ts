@@ -51,3 +51,13 @@ export * from './types';
 
 // Lib/Utilities
 export * from './lib';
+
+// Re-export types from lib/api that might not be captured by export *
+export type {
+  Activity,
+  ActivityParams,
+  ActivitySummary,
+  DashboardStats,
+  TenantStats,
+  TenantWithUsers,
+} from './lib/api/dashboard';

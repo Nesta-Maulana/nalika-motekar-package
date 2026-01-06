@@ -1,14 +1,17 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
-import { menusApi } from '../lib/api';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { menusApi, modulesApi } from '../lib/api';
 import { useAuthStore } from '../stores';
-import { Menu } from '../types';
+import { Menu, CreateMenuDTO, UpdateMenuDTO, ReorderMenuDTO } from '../types';
 
 export const MENU_QUERY_KEYS = {
   userMenus: ['menus', 'user'],
   allMenus: ['menus', 'all'],
   menuTree: ['menus', 'tree'],
+  list: ['menus'],
+  detail: (id: string) => ['menus', id],
+  modules: ['modules'],
 } as const;
 
 export function useUserMenus() {
@@ -22,6 +25,13 @@ export function useUserMenus() {
   });
 }
 
+export function useMenus() {
+  return useQuery({
+    queryKey: MENU_QUERY_KEYS.list,
+    queryFn: () => menusApi.getMenus(),
+  });
+}
+
 export function useMenuTree() {
   const { user, isHydrated } = useAuthStore();
 
@@ -30,6 +40,85 @@ export function useMenuTree() {
     queryFn: () => menusApi.getMenuTree(),
     enabled: isHydrated && !!user,
     staleTime: 1000 * 60 * 10, // 10 minutes
+  });
+}
+
+export function useCreateMenu() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: CreateMenuDTO) => menusApi.createMenu(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: MENU_QUERY_KEYS.list });
+      queryClient.invalidateQueries({ queryKey: MENU_QUERY_KEYS.menuTree });
+    },
+  });
+}
+
+export function useUpdateMenu() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ id, data }: { id: string; data: UpdateMenuDTO }) =>
+      menusApi.updateMenu(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: MENU_QUERY_KEYS.list });
+      queryClient.invalidateQueries({ queryKey: MENU_QUERY_KEYS.menuTree });
+    },
+  });
+}
+
+export function useDeleteMenu() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (id: string) => menusApi.deleteMenu(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: MENU_QUERY_KEYS.list });
+      queryClient.invalidateQueries({ queryKey: MENU_QUERY_KEYS.menuTree });
+    },
+  });
+}
+
+export function useReorderMenus() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: ReorderMenuDTO) => menusApi.reorderMenus(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: MENU_QUERY_KEYS.list });
+      queryClient.invalidateQueries({ queryKey: MENU_QUERY_KEYS.menuTree });
+    },
+  });
+}
+
+// Module hooks (for admin module management)
+export function useAdminModules() {
+  return useQuery({
+    queryKey: MENU_QUERY_KEYS.modules,
+    queryFn: () => modulesApi.getModules(),
+  });
+}
+
+export function useActivateModule() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (id: string) => modulesApi.activateModule(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: MENU_QUERY_KEYS.modules });
+    },
+  });
+}
+
+export function useDeactivateModule() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (id: string) => modulesApi.deactivateModule(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: MENU_QUERY_KEYS.modules });
+    },
   });
 }
 
