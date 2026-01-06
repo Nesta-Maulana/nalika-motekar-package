@@ -3,9 +3,10 @@ import apiClient from './client';
 export interface TenantStats {
   total: number;
   by_status: {
+    pending: number;
+    provisioning: number;
     active: number;
     suspended: number;
-    pending: number;
     terminated: number;
   };
   by_plan: Array<{
