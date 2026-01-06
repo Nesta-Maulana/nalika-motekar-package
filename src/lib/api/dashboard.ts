@@ -1,20 +1,8 @@
 import apiClient from './client';
+import type { TenantStats } from '../../types/tenant';
 
-export interface TenantStats {
-  total: number;
-  by_status: {
-    pending: number;
-    provisioning: number;
-    active: number;
-    suspended: number;
-    terminated: number;
-  };
-  by_plan: Array<{
-    plan_id: string;
-    plan_name: string;
-    count: number;
-  }>;
-}
+// Re-export TenantStats from types for backwards compatibility
+export type { TenantStats };
 
 export interface TenantWithUsers {
   tenant_id: string;
