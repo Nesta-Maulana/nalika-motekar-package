@@ -75,6 +75,8 @@ export interface User {
   avatar?: string;
   email_verified_at?: string;
   otp_enabled: boolean;
+  is_active?: boolean;
+  status?: 'active' | 'inactive';
   tenant?: Tenant;
   roles: Role[];
   permissions: string[];
