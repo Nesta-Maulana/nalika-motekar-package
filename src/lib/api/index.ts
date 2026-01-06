@@ -4,3 +4,4 @@ export { userApi } from './user';
 export { menusApi } from './menus';
 export { notificationsApi } from './notifications';
 export { tenantsApi } from './tenants';
+export { dashboardApi, type Activity, type DashboardStats, type TenantWithUsers } from './dashboard';
