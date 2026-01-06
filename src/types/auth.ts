@@ -87,7 +87,22 @@ export interface User {
 export interface Role {
   id: string;
   name: string;
+  slug?: string;
+  description?: string;
   guard_name: string;
+  is_system?: boolean;
+  permissions?: RolePermission[];
+  users_count?: number;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface RolePermission {
+  id: string;
+  name: string;
+  guard_name: string;
+  module?: string;
+  description?: string;
 }
 
 export type LoginResult =

@@ -1,6 +1,6 @@
 {
   "name": "@nesta-maulana/nalika-motekar-package",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Shared UI components, stores, and hooks for Nalika Motekar micro-frontends",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
