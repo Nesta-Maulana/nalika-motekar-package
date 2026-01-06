@@ -1,0 +1,106 @@
+{
+  "name": "@nesta-maulana/nalika-motekar-package",
+  "version": "1.0.0",
+  "description": "Shared UI components, stores, and hooks for Nalika Motekar micro-frontends",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./components/*": {
+      "import": "./dist/components/*.mjs",
+      "require": "./dist/components/*.js",
+      "types": "./dist/components/*.d.ts"
+    },
+    "./stores": {
+      "import": "./dist/stores/index.mjs",
+      "require": "./dist/stores/index.js",
+      "types": "./dist/stores/index.d.ts"
+    },
+    "./hooks": {
+      "import": "./dist/hooks/index.mjs",
+      "require": "./dist/hooks/index.js",
+      "types": "./dist/hooks/index.d.ts"
+    },
+    "./providers": {
+      "import": "./dist/providers/index.mjs",
+      "require": "./dist/providers/index.js",
+      "types": "./dist/providers/index.d.ts"
+    },
+    "./lib": {
+      "import": "./dist/lib/index.mjs",
+      "require": "./dist/lib/index.js",
+      "types": "./dist/lib/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint src --ext .ts,.tsx",
+    "type-check": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Nesta-Maulana/nalika-motekar-package.git"
+  },
+  "keywords": [
+    "nalika",
+    "motekar",
+    "ui",
+    "components",
+    "react"
+  ],
+  "author": "Nalika Motekar Team",
+  "license": "MIT",
+  "peerDependencies": {
+    "next": "^14.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "dependencies": {
+    "@radix-ui/react-avatar": "^1.0.4",
+    "@radix-ui/react-checkbox": "^1.0.4",
+    "@radix-ui/react-dialog": "^1.0.5",
+    "@radix-ui/react-dropdown-menu": "^2.0.6",
+    "@radix-ui/react-label": "^2.0.2",
+    "@radix-ui/react-popover": "^1.0.7",
+    "@radix-ui/react-separator": "^1.0.3",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-toast": "^1.1.5",
+    "@radix-ui/react-tooltip": "^1.0.7",
+    "@tanstack/react-query": "^5.28.0",
+    "@tanstack/react-query-devtools": "^5.28.0",
+    "axios": "^1.6.8",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "date-fns": "^3.6.0",
+    "laravel-echo": "^1.16.1",
+    "lucide-react": "^0.363.0",
+    "pusher-js": "^8.4.0-rc2",
+    "tailwind-merge": "^2.2.2",
+    "zod": "^3.22.4",
+    "zustand": "^4.5.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.2",
+    "@types/react": "^18.2.73",
+    "@types/react-dom": "^18.2.23",
+    "eslint": "^8.57.0",
+    "next": "14.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.3"
+  }
+}
