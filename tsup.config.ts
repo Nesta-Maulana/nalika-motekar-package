@@ -1,5 +1,5 @@
 import { defineConfig } from 'tsup';
-import { readFileSync, writeFileSync, readdirSync } from 'fs';
+import { readFileSync, writeFileSync, readdirSync, mkdirSync, copyFileSync, existsSync } from 'fs';
 import { join } from 'path';
 
 function addUseClientDirective(dir: string) {
@@ -11,6 +11,23 @@ function addUseClientDirective(dir: string) {
       if (!content.startsWith('"use client"')) {
         writeFileSync(filePath, `"use client";\n${content}`);
       }
+    }
+  }
+}
+
+function copyStyles() {
+  const srcDir = './src/styles';
+  const distDir = './dist/styles';
+
+  if (!existsSync(distDir)) {
+    mkdirSync(distDir, { recursive: true });
+  }
+
+  const files = readdirSync(srcDir);
+  for (const file of files) {
+    if (file.endsWith('.css')) {
+      copyFileSync(join(srcDir, file), join(distDir, file));
+      console.log(`Copied ${file} to dist/styles/`);
     }
   }
 }
@@ -40,5 +57,8 @@ export default defineConfig({
     addUseClientDirective('./dist/providers');
     addUseClientDirective('./dist/lib');
     console.log('Added "use client" directive to all JS files');
+
+    // Copy CSS styles to dist
+    copyStyles();
   },
 });

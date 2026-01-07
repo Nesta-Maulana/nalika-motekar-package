@@ -35,7 +35,8 @@
       "import": "./dist/lib/index.mjs",
       "require": "./dist/lib/index.js",
       "types": "./dist/lib/index.d.ts"
-    }
+    },
+    "./styles/globals.css": "./dist/styles/globals.css"
   },
   "files": [
     "dist"
